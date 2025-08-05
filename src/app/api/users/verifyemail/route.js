@@ -1,4 +1,4 @@
-"use client"
+
 import { connectDb } from "@/dbConfig/dbConfig";
 import User from "@/model/userModel";
 import { NextRequest, NextResponse } from "next/server";
