@@ -6,6 +6,11 @@ import bcryptjs from "bcryptjs";
 export const sendEmail2 = async ({ email, emailType, userId }) => {
     try {
         const hashedToken = await bcryptjs.hash(userId.toString(), 10);
+        //    const resetToken = await bcryptjs.hash(user._id.toString(), 10);
+        
+            // user.resetPasswordToken = resetToken;
+            // user.resetPasswordExpiry = Date.now() + 3600000; // 1 hour
+            // await user.save();
 
         // Set token fields based on emailType
         const updateFields =
@@ -15,8 +20,8 @@ export const sendEmail2 = async ({ email, emailType, userId }) => {
                     verifyTokenExpiry: Date.now() + 3600000, // 1 hour
                 }
                 : {
-                    forgotPasswordToken: hashedToken,
-                    forgotPasswordTokenExpiry: Date.now() + 3600000,
+                    resetPasswordToken: hashedToken,
+                    resetPasswordExpiry: Date.now() + 3600000,
                 };
 
         await User.findByIdAndUpdate(userId, updateFields);
@@ -38,7 +43,7 @@ export const sendEmail2 = async ({ email, emailType, userId }) => {
         const actionUrl =
             emailType === "VERIFY"
                 ? `${process.env.DOMAIN}/verifyemail?token=${hashedToken}`
-                : `${process.env.DOMAIN}/forgotpassword?token=${hashedToken}`;
+                : `${process.env.DOMAIN}/resetpassword?token=${hashedToken}`;
 
         const html = emailTemplate({
             emailTitle: subject,

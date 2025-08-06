@@ -107,6 +107,12 @@ const [btnDisabled, setBtnDisabled] = useState(false)
             Create one
           </Link>
         </p>
+          <p className="mt-6 text-center text-sm text-gray-400">
+          Forgot password?{' '}
+          <Link href="/forgotpassword" className="text-purple-400 hover:underline">
+            Forgot password
+          </Link>
+        </p>
       </div>
     </div>
     </>
